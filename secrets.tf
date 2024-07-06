@@ -24,7 +24,6 @@ resource "kubernetes_secret" "axonserver_license" {
   }
 
   data = {
-    #"axonserver.license" = file("${path.module}/conf/axonserver.license")
     "axonserver.license" = var.axonserver_license_path
   }
 }
