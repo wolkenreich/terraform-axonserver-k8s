@@ -15,3 +15,9 @@ variable "public_domain" {
   type        = string
   default     = ""
 }
+
+variable "axonserver_license_path" {
+  description = "Axon Server license path"
+  type        = string
+  default     = ""
+}
