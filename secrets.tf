@@ -17,13 +17,13 @@ resource "kubernetes_secret" "axonserver_token" {
   immutable = true
 }
 
-resource "kubernetes_secret" "axonserver_license" {
+resource "kubernetes_secret" "axoniq_license" {
   metadata {
-    name      = "axonserver.license"
+    name      = "axoniq.license"
     namespace = kubernetes_namespace.as_demo.id
   }
 
   data = {
-    "axonserver.license" = var.axonserver_license_path
+    "axoniq.license" = var.axonserver_license_path
   }
 }

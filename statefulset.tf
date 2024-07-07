@@ -180,7 +180,7 @@ resource "kubernetes_stateful_set" "axonserver" {
           name = "license"
 
           secret {
-            secret_name = kubernetes_secret.axonserver_license.metadata[0].name
+            secret_name = kubernetes_secret.axoniq_license.metadata[0].name
           }
         }
 
