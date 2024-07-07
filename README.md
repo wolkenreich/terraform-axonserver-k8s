@@ -25,7 +25,7 @@ module "as_demo" {
   cluster_name  = "axonserver"
   public_domain = "axoniq.net"
 
-  axonserver_license_path = file("${path.module}/axonserver.license")
+  axonserver_license_path = file("${path.module}/axoniq.license")
 }
 ```
 
