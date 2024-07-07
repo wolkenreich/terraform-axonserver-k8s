@@ -1,3 +1,9 @@
+variable "namespace" {
+  description = "Kubernetes namespace"
+  type        = string
+  default     = "axonserver"
+}
+
 variable "cluster_name" {
   description = "Axon Server cluster name"
   type        = string
