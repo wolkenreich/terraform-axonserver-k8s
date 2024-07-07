@@ -1,4 +1,4 @@
-# Terraform Module to deploy Axon Server on k8s
+# Terraform Module to deploy Axon Server on GKE
 
 
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) 
