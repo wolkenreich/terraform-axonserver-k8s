@@ -19,7 +19,7 @@
 
 ```terraform
 module "as_demo" {
-  source = "git@github.com:AxonIQ/terraform-axonserver-gke.git?ref=v1.1"
+  source = "git@github.com:AxonIQ/terraform-axonserver-gke.git?ref=v1.4"
 
   nodes_number  = 3
   cluster_name  = "axonserver"
