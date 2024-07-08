@@ -1,5 +1,5 @@
 resource "kubernetes_stateful_set" "axonserver" {
-  count = var.nodes_number
+  count = var.nodes_number 
 
   metadata {
     name      = "${var.cluster_name}-${count.index + 1}"
@@ -82,9 +82,12 @@ resource "kubernetes_stateful_set" "axonserver" {
             value = "${var.cluster_name}-${count.index + 1}"
           }
 
-          env {
-            name  = "AXONIQ_CONSOLE_AUTHENTICATION"
-            value = var.console_authentication
+          dynamic "env" {
+            for_each = length(var.console_authentication) > 0 ? [1] : []
+            content {
+              name  = "AXONIQ_CONSOLE_AUTHENTICATION"
+              value = var.console_authentication
+            }
           }
 
           volume_mount {
@@ -119,10 +122,13 @@ resource "kubernetes_stateful_set" "axonserver" {
             read_only  = true
           }
 
-          volume_mount {
-            name       = "license"
-            mount_path = "/axonserver/license"
-            read_only  = true
+          dynamic "volume_mount" {
+            for_each = length(var.console_authentication) > 0 ? [] : [1]
+            content {
+              name       = "license"
+              mount_path = "/axonserver/license"
+              read_only  = true
+            }
           }
 
           startup_probe {
@@ -181,11 +187,14 @@ resource "kubernetes_stateful_set" "axonserver" {
           }
         }
 
-        volume {
-          name = "license"
+        dynamic "volume" {
+          for_each = length(var.console_authentication) > 0 ? [] : [1]
+          content {
+            name = "license"
 
-          secret {
-            secret_name = kubernetes_secret.axoniq_license.metadata[0].name
+            secret {
+              secret_name = kubernetes_secret.axoniq_license[0].metadata[0].name
+            }
           }
         }
 
