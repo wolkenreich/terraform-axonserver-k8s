@@ -1,7 +1,3 @@
-locals {
-  console = var.console_authentication != ""
-}
-
 resource "kubernetes_stateful_set" "axonserver" {
   count = var.nodes_number 
 
@@ -87,7 +83,7 @@ resource "kubernetes_stateful_set" "axonserver" {
           }
 
           dynamic "env" {
-            for_each = local.console ? 1 : 0
+            for_each = length(var.console_authentication) > 0 ? [1] : []
             content {
               name  = "AXONIQ_CONSOLE_AUTHENTICATION"
               value = var.console_authentication
@@ -127,7 +123,7 @@ resource "kubernetes_stateful_set" "axonserver" {
           }
 
           dynamic "volume_mount" {
-            for_each = local.console ? 0 : 1
+            for_each = length(var.console_authentication) > 0 ? [] : [1]
             content {
               name       = "license"
               mount_path = "/axonserver/license"
@@ -192,7 +188,7 @@ resource "kubernetes_stateful_set" "axonserver" {
         }
 
         dynamic "volume" {
-          for_each = local.console ? 0 : 1
+          for_each = length(var.console_authentication) > 0 ? [] : [1]
           content {
             name = "license"
 
