@@ -82,6 +82,11 @@ resource "kubernetes_stateful_set" "axonserver" {
             value = "${var.cluster_name}-${count.index + 1}"
           }
 
+          env {
+            name  = "AXONIQ_CONSOLE_AUTHENTICATION"
+            value = var.console_authentication
+          }
+
           volume_mount {
             name       = "data"
             mount_path = "/axonserver/data"

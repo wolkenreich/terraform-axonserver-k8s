@@ -27,3 +27,9 @@ variable "axonserver_license_path" {
   type        = string
   default     = ""
 }
+
+variable "console_authentication" {
+  description = "Console Authentication token"
+  type        = string
+  default     = ""
+}
