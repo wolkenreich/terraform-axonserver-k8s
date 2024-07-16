@@ -1,5 +1,5 @@
 resource "kubernetes_stateful_set" "axonserver" {
-  count = var.nodes_number 
+  count = var.nodes_number
 
   metadata {
     name      = "${var.cluster_name}-${count.index + 1}"
@@ -40,7 +40,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         container {
           name              = "${var.cluster_name}-${count.index + 1}"
-          image             = "axoniq/axonserver:latest-jdk-11"
+          image             = "axoniq/axonserver:${var.axonserver_release}-jdk-11"
           image_pull_policy = "IfNotPresent"
 
           resources {
