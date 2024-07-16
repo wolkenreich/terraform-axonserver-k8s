@@ -31,26 +31,21 @@ resource "kubernetes_stateful_set" "axonserver" {
       }
 
       spec {
-        #security_context {
-        #  run_as_user = 1001
-        #  fs_group    = 1001
-        #}
-
         termination_grace_period_seconds = 120
 
         container {
           name              = "${var.cluster_name}-${count.index + 1}"
-          image             = "axoniq/axonserver:${var.axonserver_release}-jdk-11"
+          image             = "axoniq/axonserver:${var.axonserver_release}-jdk-${var.java_version}"
           image_pull_policy = "IfNotPresent"
 
           resources {
             limits = {
-              cpu    = "1"
-              memory = "1Gi"
+              cpu    = var.resources_limits_cpu
+              memory = var.resources_limits_memory
             }
             requests = {
-              cpu    = "1"
-              memory = "1Gi"
+              cpu    = var.resources_requests_cpu
+              memory = var.resources_requests_memory
             }
           }
 
@@ -211,7 +206,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         resources {
           requests = {
-            storage = "5Gi"
+            storage = var.events_storage
           }
         }
       }
@@ -227,7 +222,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         resources {
           requests = {
-            storage = "2Gi"
+            storage = var.log_storage
           }
         }
       }
@@ -243,7 +238,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         resources {
           requests = {
-            storage = "10Gi"
+            storage = var.data_storage
           }
         }
       }
@@ -259,7 +254,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         resources {
           requests = {
-            storage = "1Gi"
+            storage = var.plugins_storage
           }
         }
       }
