@@ -42,54 +42,60 @@ variable "console_authentication" {
 
 variable "java_version" {
   description = "Java runtime"
-  type = number
-  default = 11
+  type        = number
+  default     = 11
 }
 
 variable "resources_limits_cpu" {
   description = "spec.container.resources.limits.cpu"
-  type = number
-  default = 1
+  type        = number
+  default     = 1
 }
 
 variable "resources_limits_memory" {
   description = "spec.container.resources.limits.memory"
-  type = string
-  default = "1Gi"
+  type        = string
+  default     = "1Gi"
 }
 
 variable "resources_requests_cpu" {
   description = "spec.container.resources.requests.cpu"
-  type = number
-  default = 1
+  type        = number
+  default     = 1
 }
 
 variable "resources_requests_memory" {
   description = "spec.container.resources.requests.memory"
-  type = string
-  default = "1Gi"
+  type        = string
+  default     = "1Gi"
 }
 
 variable "events_storage" {
   description = "Events PVC storage"
-  type = string
-  default = "5Gi"
+  type        = string
+  default     = "5Gi"
 }
 
 variable "log_storage" {
   description = "Log PVC storage"
-  type = string
-  default = "2Gi"
+  type        = string
+  default     = "2Gi"
 }
 
 variable "data_storage" {
   description = "Data PVC storage"
-  type = string
-  default = "10Gi"
+  type        = string
+  default     = "10Gi"
 }
 
 variable "plugins_storage" {
   description = "Plugins PVC storage"
-  type = string
-  default = "1Gi"
+  type        = string
+  default     = "1Gi"
+}
+
+variable "devmode_enabled" {
+  description = "Axon Server devmode"
+  type        = bool
+  default     = false
 }
