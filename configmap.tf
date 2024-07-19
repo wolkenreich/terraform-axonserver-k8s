@@ -1,5 +1,5 @@
 data "template_file" "axonserver_properties" {
-  template = file("${path.module}/conf/axonserver.properties.tmpl")
+  template = file("${path.module}/conf/axonserver.properties.tftpl")
 
   vars = {
     first_name      = "${var.cluster_name}-1"
