@@ -1,21 +1,13 @@
-#data "template_file" "axonserver_properties" {
-#  template = file("${path.module}/conf/axonserver.properties.tmpl")
-#
-#  vars = {
-#    first_name      = "${var.cluster_name}-1"
-#    public_domain   = var.public_domain
-#    namespace       = kubernetes_namespace.as_demo.id
-#    internal_token  = random_uuid.internal_token.result
-#    devmode_enabled = var.devmode_enabled
-#  }
-#}
+data "template_file" "axonserver_properties" {
+  template = file("${path.module}/conf/axonserver.properties.tmpl")
 
-locals {
-  first_name      = "${var.cluster_name}-1"
-  public_domain   = var.public_domain
-  namespace       = kubernetes_namespace.as_demo.id
-  internal_token  = random_uuid.internal_token.result
-  devmode_enabled = var.devmode_enabled
+  vars = {
+    first_name      = "${var.cluster_name}-1"
+    public_domain   = var.public_domain
+    namespace       = kubernetes_namespace.as_demo.id
+    internal_token  = random_uuid.internal_token.result
+    devmode_enabled = var.devmode_enabled
+  }
 }
 
 resource "kubernetes_config_map" "axonserver_properties" {
@@ -25,12 +17,6 @@ resource "kubernetes_config_map" "axonserver_properties" {
   }
 
   data = {
-    "axonserver.properties" = templatefile("${path.module}/conf/axonserver.properties.tftpl", {
-      first_name      = local.first_name,
-      public_domain   = local.public_domain,
-      namespace       = local.namespace,
-      internal_token  = local.internal_token,
-      devmode_enabled = local.devmode_enabled
-    })
+    "axonserver.properties" = data.template_file.axonserver_properties.rendered
   }
 }
