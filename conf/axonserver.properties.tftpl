@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-%{ if var.console_authentication = "" }
+%{ if var.console_authentication == "" }
 axoniq.axonserver.autocluster.first=${first_name}.${namespace}.svc.cluster.local
 axoniq.axonserver.autocluster.contexts=_admin,default
 %{ endif }
