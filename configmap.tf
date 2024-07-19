@@ -12,11 +12,11 @@
 
 locals {
   properties = templatefile("${path.module}/conf/axonserver.properties.tftpl", {
-    first_name      = "${var.cluster_name}-1"
-    public_domain   = var.public_domain
+    first_name      = "$${var.cluster_name}-1"
+    public_domain   = "$${var.public_domain}"
     namespace       = kubernetes_namespace.as_demo.id
     internal_token  = random_uuid.internal_token.result
-    devmode_enabled = var.devmode_enabled
+    devmode_enabled = "$${var.devmode_enabled}"
   })
 }
 
