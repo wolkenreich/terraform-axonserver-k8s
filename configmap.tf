@@ -27,6 +27,6 @@ resource "kubernetes_config_map" "axonserver_properties" {
   }
 
   data = {
-    "axonserver.properties" = local.properties
+    "axonserver.properties" = "${file(local.properties)}"
   }
 }
