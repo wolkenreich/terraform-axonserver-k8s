@@ -1,7 +1,7 @@
 variable "axonserver_release" {
   description = "Axonserver Release"
   type        = string
-  default     = "2024.0.4"
+  default     = "2024.1.0"
 }
 
 variable "namespace" {
