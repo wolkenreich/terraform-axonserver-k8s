@@ -1,7 +1,7 @@
 variable "axonserver_release" {
   description = "Axonserver Release"
   type        = string
-  default     = "2024.0.4"
+  default     = "2024.1.0"
 }
 
 variable "namespace" {
@@ -92,6 +92,12 @@ variable "plugins_storage" {
   description = "Plugins PVC storage"
   type        = string
   default     = "1Gi"
+}
+
+variable "axonserver_properties" {
+  description = "Path to axonserver.properties file"
+  type        = string
+  default     = ""
 }
 
 variable "devmode_enabled" {
