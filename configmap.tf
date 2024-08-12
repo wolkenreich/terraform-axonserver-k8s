@@ -1,3 +1,7 @@
+locals {
+  axonserver_properties = var.axonserver_properties == "" ? data.template_file.axonserver_properties.rendered : var.axonserver_properties
+}
+
 data "template_file" "axonserver_properties" {
   template = file("${path.module}/conf/axonserver.properties.tmpl")
 
@@ -17,6 +21,6 @@ resource "kubernetes_config_map" "axonserver_properties" {
   }
 
   data = {
-    "axonserver.properties" = data.template_file.axonserver_properties.rendered
+    "axonserver.properties" = local.axonserver_properties
   }
 }

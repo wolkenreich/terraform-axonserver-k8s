@@ -94,6 +94,12 @@ variable "plugins_storage" {
   default     = "1Gi"
 }
 
+variable "axonserver_properties" {
+  description = "Path to axonserver.properties file"
+  type        = string
+  default     = ""
+}
+
 variable "devmode_enabled" {
   description = "Axon Server devmode"
   type        = bool
