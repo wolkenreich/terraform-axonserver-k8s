@@ -34,7 +34,7 @@ resource "kubernetes_stateful_set" "axonserver" {
         termination_grace_period_seconds = 120
 
         dynamic "affinity" {
-          for_each = var.instance_co_location == true ? [ ] : [1]
+          for_each = var.share_instance == true ? [ ] : [1]
           content {
             pod_anti_affinity {
               preferred_during_scheduling_ignored_during_execution {
