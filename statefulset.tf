@@ -43,9 +43,9 @@ resource "kubernetes_stateful_set" "axonserver" {
 
                 label_selector {
                   match_expressions {
-                    key      = "app"
+                    key      = "cluster"
                     operator = "In"
-                    values   = ["${var.cluster_name}-${count.index + 1}"]
+                    values   = [ var.cluster_name ]
                   }
                 }
               }
