@@ -106,8 +106,8 @@ variable "devmode_enabled" {
   default     = false
 }
 
-variable "share_instance" {
+variable "assign_pods_to_different_nodes" {
   description = "Avoid co location of the replicas on the same node"
   type        = bool
-  default     = true
+  default     = false
 }
