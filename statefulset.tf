@@ -36,8 +36,11 @@ resource "kubernetes_stateful_set" "axonserver" {
         affinity {
           pod_anti_affinity {
             preferred_during_scheduling_ignored_during_execution {
-              topology_key = "kubernetes.io/hostname"
+              weight = "20"
+
               pod_affinity_term {
+                topology_key = "kubernetes.io/hostname"
+
                 label_selector {
                   match_expressions {
                     key      = "app"
