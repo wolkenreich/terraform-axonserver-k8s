@@ -106,7 +106,7 @@ variable "devmode_enabled" {
   default     = false
 }
 
-variable "avoid_colocation" {
+variable "instance_co_location" {
   description = "Avoid co location of the replicas on the same node"
   type        = bool
   default     = false
