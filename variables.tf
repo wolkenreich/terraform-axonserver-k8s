@@ -1,7 +1,7 @@
 variable "axonserver_release" {
   description = "Axonserver Release"
   type        = string
-  default     = "2024.0.4"
+  default     = "2024.1.0"
 }
 
 variable "namespace" {
@@ -94,8 +94,20 @@ variable "plugins_storage" {
   default     = "1Gi"
 }
 
+variable "axonserver_properties" {
+  description = "Path to axonserver.properties file"
+  type        = string
+  default     = ""
+}
+
 variable "devmode_enabled" {
   description = "Axon Server devmode"
+  type        = bool
+  default     = false
+}
+
+variable "assign_pods_to_different_nodes" {
+  description = "Avoid co location of the replicas on the same node"
   type        = bool
   default     = false
 }
