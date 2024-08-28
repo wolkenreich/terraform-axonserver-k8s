@@ -35,18 +35,20 @@ resource "kubernetes_stateful_set" "axonserver" {
 
         dynamic "affinity" {
           for_each = var.avoid_colocation == "true" ? 1: 0
-          pod_anti_affinity {
-            preferred_during_scheduling_ignored_during_execution {
-              weight = "20"
+          content {
+            pod_anti_affinity {
+              preferred_during_scheduling_ignored_during_execution {
+                weight = "20"
 
-              pod_affinity_term {
-                topology_key = "kubernetes.io/hostname"
+                pod_affinity_term {
+                  topology_key = "kubernetes.io/hostname"
 
-                label_selector {
-                  match_expressions {
-                    key      = "cluster"
-                    operator = "In"
-                    values   = [ var.cluster_name ]
+                  label_selector {
+                    match_expressions {
+                      key      = "cluster"
+                      operator = "In"
+                      values   = [ var.cluster_name ]
+                    }
                   }
                 }
               }
