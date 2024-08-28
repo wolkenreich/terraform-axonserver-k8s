@@ -29,8 +29,6 @@ module "as_demo" {
   public_domain = "axoniq.net"
   namespace     = "axonserver"
   
-  assign_pods_to_different_nodes = true
-
   axonserver_license_path = file("${path.module}/axoniq.license")
   axonserver_properties   = file("${path.module}/axonserver.properties")
 }
