@@ -33,6 +33,23 @@ resource "kubernetes_stateful_set" "axonserver" {
       spec {
         termination_grace_period_seconds = 120
 
+        affinity {
+          pod_anti_affinity {
+            preferred_during_scheduling_ignored_during_execution {
+              topology_key = "kubernetes.io/hostname"
+              pod_affinity_term {
+                label_selector {
+                  match_expressions {
+                    key      = "app"
+                    operator = "In"
+                    values   = ["${var.cluster_name}-${count.index + 1}"]
+                  }
+                }
+              }
+            }
+          }
+        }
+
         container {
           name              = "${var.cluster_name}-${count.index + 1}"
           image             = "axoniq/axonserver:${var.axonserver_release}-jdk-${var.java_version}"
