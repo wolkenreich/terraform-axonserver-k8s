@@ -33,7 +33,8 @@ resource "kubernetes_stateful_set" "axonserver" {
       spec {
         termination_grace_period_seconds = 120
 
-        affinity {
+        dynamic "affinity" {
+          for_each = var.avoid_colocation == "true" ? 1: 0
           pod_anti_affinity {
             preferred_during_scheduling_ignored_during_execution {
               weight = "20"
