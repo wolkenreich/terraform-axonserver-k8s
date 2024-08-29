@@ -34,7 +34,7 @@ resource "kubernetes_stateful_set" "axonserver" {
         termination_grace_period_seconds = 120
 
         dynamic "affinity" {
-          for_each = var.assign_pods_to_different_nodes == true ? [1] : [ ]
+          for_each = var.assign_pods_to_different_nodes == true ? [1] : []
           content {
             pod_anti_affinity {
               preferred_during_scheduling_ignored_during_execution {
@@ -47,7 +47,7 @@ resource "kubernetes_stateful_set" "axonserver" {
                     match_expressions {
                       key      = "cluster"
                       operator = "In"
-                      values   = [ var.cluster_name ]
+                      values   = [var.cluster_name]
                     }
                   }
                 }
