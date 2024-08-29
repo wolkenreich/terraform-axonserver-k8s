@@ -19,7 +19,7 @@
 
 ```terraform
 module "as_demo" {
-  source = "git@github.com:AxonIQ/terraform-axonserver-k8s.git?ref=v1.11"
+  source = "git@github.com:AxonIQ/terraform-axonserver-k8s.git?ref=v1.12"
   
   axonserver_release = "2024.1.1"
   java_version       = "17"
