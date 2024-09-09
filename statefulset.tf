@@ -131,6 +131,7 @@ resource "kubernetes_stateful_set" "axonserver" {
           volume_mount {
             name       = "config"
             mount_path = "/axonserver/config"
+            read_only  = true
           }
 
           volume_mount {
