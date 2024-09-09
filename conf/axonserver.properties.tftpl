@@ -15,9 +15,9 @@
 %{ if console_authentication == "" }
 axoniq.axonserver.autocluster.first=${first_name}.${namespace}.svc.cluster.local
 axoniq.axonserver.autocluster.contexts=_admin,default
+%{ endif }
 
 axoniq.axonserver.enterprise.licenseDirectory=./license
-%{ endif }
 
 axoniq.axonserver.domain=${public_domain}
 axoniq.axonserver.internal-domain=${namespace}.svc.cluster.local
