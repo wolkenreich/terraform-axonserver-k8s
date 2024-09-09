@@ -43,7 +43,7 @@ variable "console_authentication" {
 variable "java_version" {
   description = "Java runtime"
   type        = number
-  default     = 17
+  default     = "17"
 
   validation {
     condition     = contains(["17", "11"], var.java_version)
