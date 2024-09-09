@@ -46,7 +46,7 @@ variable "java_version" {
   default     = "17"
 
   validation {
-    condition     = can(["17", "11"], var.java_version)
+    condition     = can(regex("^(17|11)$", var.java_version))
     error_message = "The Java version is not supported, it must be either '17' or '11'."
   }
 }
