@@ -99,6 +99,12 @@ variable "plugins_storage" {
   default     = "1Gi"
 }
 
+variable "license_storage" {
+  description = "License PVC storage"
+  type        = string
+  default     = "1Gi"
+}
+
 variable "axonserver_properties" {
   description = "Path to axonserver.properties file"
   type        = string
