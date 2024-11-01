@@ -140,13 +140,10 @@ resource "kubernetes_stateful_set" "axonserver" {
             read_only  = true
           }
 
-          dynamic "volume_mount" {
-            for_each = length(var.console_authentication) > 0 ? [] : [1]
-            content {
-              name       = "license"
-              mount_path = "/axonserver/license"
-              read_only  = true
-            }
+          volume_mount {
+            name       = "license"
+            mount_path = "/axonserver/license"
+            read_only  = length(var.console_authentication) > 0 ? false : true
           }
 
           startup_probe {
@@ -278,6 +275,25 @@ resource "kubernetes_stateful_set" "axonserver" {
         resources {
           requests = {
             storage = var.plugins_storage
+          }
+        }
+      }
+    }
+
+    dynamic "volume_claim_template" {
+      for_each = length(var.console_authentication) > 0 ? [1] : []
+      content {
+        metadata {
+          name = "license"
+        }
+
+        spec {
+          access_modes = ["ReadWriteOnce"]
+
+          resources {
+            requests = {
+              storage = var.license_storage
+            }
           }
         }
       }

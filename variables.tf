@@ -1,7 +1,7 @@
 variable "axonserver_release" {
   description = "Axonserver Release"
   type        = string
-  default     = "2024.1.0"
+  default     = "2024.1.4"
 }
 
 variable "namespace" {
@@ -43,10 +43,10 @@ variable "console_authentication" {
 variable "java_version" {
   description = "Java runtime"
   type        = number
-  default     = 17
+  default     = "17"
 
   validation {
-    condition     = contains(["17", "11"], var.java_version)
+    condition     = can(regex("^(17|11)$", var.java_version))
     error_message = "The Java version is not supported, it must be either '17' or '11'."
   }
 }
@@ -95,6 +95,12 @@ variable "data_storage" {
 
 variable "plugins_storage" {
   description = "Plugins PVC storage"
+  type        = string
+  default     = "1Gi"
+}
+
+variable "license_storage" {
+  description = "License PVC storage"
   type        = string
   default     = "1Gi"
 }
