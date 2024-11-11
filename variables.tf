@@ -4,6 +4,11 @@ variable "axonserver_release" {
   default     = "2024.1.4"
 }
 
+variable "create_namespace" {
+  type    = bool
+  default = true
+}
+
 variable "namespace" {
   description = "Kubernetes namespace"
   type        = string
