@@ -3,7 +3,7 @@ resource "kubernetes_stateful_set" "axonserver" {
 
   metadata {
     name      = "${var.cluster_name}-${count.index + 1}"
-    namespace = kubernetes_namespace.as_demo.id
+    namespace = var.create_namespace ? kubernetes_namespace.axonserver[0].id : data.kubernetes_namespace.axonserver[0].id
 
     labels = {
       app     = "${var.cluster_name}-${count.index + 1}"
