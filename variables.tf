@@ -127,3 +127,8 @@ variable "assign_pods_to_different_nodes" {
   type        = bool
   default     = false
 }
+
+variable "accesscontrol_enabled" {
+  type    = bool
+  default = true
+}
