@@ -56,6 +56,12 @@ variable "java_version" {
   }
 }
 
+variable "java_tool_options" {
+  description = "Java tool options - used to pass JVM options"
+  type        = string
+  default     = ""
+}
+
 variable "resources_limits_cpu" {
   description = "spec.container.resources.limits.cpu"
   type        = number
