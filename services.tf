@@ -39,4 +39,9 @@ resource "kubernetes_service" "axonserver" {
     }
     cluster_ip = "None"
   }
+
+  lifecycle {
+    ignore_changes = [metadata[0].annotations["cloud.google.com/neg"]]
+  }
+
 }
