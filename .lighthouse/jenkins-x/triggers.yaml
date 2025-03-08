@@ -6,13 +6,11 @@ spec:
     context: "pr"
     always_run: true
     optional: false
-    trigger: "/test"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   postsubmits:
   - name: release
     context: "release"
     source: "release.yaml"
     branches:
-    - main
-    - master
+    - ^main$
+    - ^master$
