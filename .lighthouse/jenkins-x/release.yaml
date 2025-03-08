@@ -28,6 +28,8 @@ spec:
               memory: 600Mi          
         - name: lint
           resources: {}
+          script: |
+            terraform init
         - name: changelog
           resources: {}
         - name: promote
