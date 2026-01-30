@@ -26,10 +26,12 @@ spec:
             requests:
               cpu: 400m
               memory: 600Mi          
-        - name: lint
+        - name: validate
           resources: {}
+          image: hashicorp/terraform:1.14
           script: |
             terraform init
+            terraform validate
         - name: changelog
           resources: {}
         - name: promote
