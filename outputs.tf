@@ -1,5 +1,6 @@
 
 
 output "axonserver_token" {
-  value = random_uuid.token.result
+  value     = random_uuid.token.result
+  sensitive = true
 }
