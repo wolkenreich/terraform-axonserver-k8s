@@ -163,7 +163,7 @@ module "axonserver" {
 
 When deploying a multi-node cluster (`nodes_number > 1`), you must provide **one** of the following:
 - **`axonserver_license_path`**: Path to your Axon Server Enterprise license file
-- **`console_authentication`**: Authentication token for Axon Server Cloud
+- **`platform_authentication`**: Authentication token for the AxonIQ Platform
 
 Single node deployments (`nodes_number = 1`) do not require either of these parameters.
 
