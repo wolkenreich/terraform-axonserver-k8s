@@ -118,14 +118,6 @@ resource "kubernetes_stateful_set" "axonserver" {
             value = var.java_tool_options
           }
 
-          dynamic "env" {
-            for_each = length(var.console_authentication) > 0 ? [1] : []
-            content {
-              name  = "AXONIQ_CONSOLE_AUTHENTICATION"
-              value = var.console_authentication
-            }
-          }
-
           volume_mount {
             name       = "data"
             mount_path = "/axonserver/data"
