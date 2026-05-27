@@ -5,9 +5,9 @@ resource "kubernetes_stateful_set" "axonserver" {
     precondition {
       condition = (
         var.nodes_number == 1 ||
-        (var.nodes_number > 1 && (length(var.console_authentication) > 0 || var.axonserver_license_path != null && var.axonserver_license_path != ""))
+        (var.nodes_number > 1 && (length(var.platform_authentication) > 0 || var.axonserver_license_path != null && var.axonserver_license_path != ""))
       )
-      error_message = "When deploying more than one Axon Server node (nodes_number > 1), you must provide either 'console_authentication' or 'axonserver_license_path' for proper clustering configuration."
+      error_message = "When deploying more than one Axon Server node (nodes_number > 1), you must provide either 'platform_authentication' or 'axonserver_license_path' for proper clustering configuration."
     }
   }
 
