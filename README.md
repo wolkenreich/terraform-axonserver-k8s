@@ -45,8 +45,8 @@ module "axonserver" {
   # Option 1: Provide a license file
   axonserver_license_path = file("${path.module}/axoniq.license")
   
-  # Option 2: Or use console authentication (Axon Server Cloud)
-  # console_authentication = "your-console-token"
+  # Option 2: Or use platform authentication (AxonIQ Platform)
+  # platform_authentication = "your-platform-token"
   
   # Optional: Custom properties file
   axonserver_properties = file("${path.module}/axonserver.properties")
