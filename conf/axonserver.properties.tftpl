@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-%{ if console_authentication == "" }
+%{ if platform_authentication == "" }
 axoniq.axonserver.autocluster.first=${first_name}.${namespace}.svc.cluster.local
 axoniq.axonserver.autocluster.contexts=_admin,default
 %{ endif }
@@ -24,6 +24,14 @@ axoniq.axonserver.internal-domain=${namespace}.svc.cluster.local
 axoniq.axonserver.accesscontrol.enabled=${accesscontrol_enabled}
 axoniq.axonserver.accesscontrol.internal-token=${internal_token}
 axoniq.axonserver.accesscontrol.systemtokenfile=/axonserver/security/axonserver.token
+
+%{ if platform_authentication != "" }
+axoniq.platform.authentication=${platform_authentication}
+%{ endif }
+
+%{ if admin_password != "" }
+axoniq.axonserver.accesscontrol.initial-admin-password=${admin_password}
+%{ endif }
 
 security.require-ssl=false
 
