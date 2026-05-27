@@ -153,7 +153,7 @@ resource "kubernetes_stateful_set" "axonserver" {
           volume_mount {
             name       = "license"
             mount_path = "/axonserver/license"
-            read_only  = length(var.console_authentication) > 0 ? false : true
+            read_only  = length(var.platform_authentication) > 0 ? false : true
           }
 
           startup_probe {
@@ -213,7 +213,7 @@ resource "kubernetes_stateful_set" "axonserver" {
         }
 
         dynamic "volume" {
-          for_each = length(var.console_authentication) > 0 ? [] : [1]
+          for_each = length(var.platform_authentication) > 0 ? [] : [1]
           content {
             name = "license"
 
@@ -291,7 +291,7 @@ resource "kubernetes_stateful_set" "axonserver" {
     }
 
     dynamic "volume_claim_template" {
-      for_each = length(var.console_authentication) > 0 ? [1] : []
+      for_each = length(var.platform_authentication) > 0 ? [1] : []
       content {
         metadata {
           name = "license"
