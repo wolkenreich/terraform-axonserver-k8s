@@ -52,9 +52,16 @@ variable "axonserver_license_path" {
   default     = ""
 }
 
-variable "console_authentication" {
-  description = "Console Authentication token"
+variable "platform_authentication" {
+  description = "AxonIQ Platform authentication token (sets axoniq.platform.authentication)"
   type        = string
+  default     = ""
+}
+
+variable "admin_password" {
+  description = "Initial admin password (sets axoniq.axonserver.accesscontrol.initial-admin-password)"
+  type        = string
+  sensitive   = true
   default     = ""
 }
 
