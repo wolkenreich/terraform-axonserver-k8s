@@ -18,7 +18,7 @@ resource "kubernetes_secret" "axonserver_token" {
 }
 
 resource "kubernetes_secret" "axoniq_license" {
-  count = length(var.console_authentication) > 0 ? 0 : 1
+  count = length(var.platform_authentication) > 0 ? 0 : 1
   metadata {
     name      = "axoniq.license"
     namespace = var.create_namespace ? kubernetes_namespace.axonserver[0].id : data.kubernetes_namespace.axonserver[0].id
