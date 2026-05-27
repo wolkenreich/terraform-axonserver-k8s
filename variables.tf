@@ -17,8 +17,9 @@ variable "image_pull_policy" {
 }
 
 variable "create_namespace" {
-  type    = bool
-  default = true
+  description = "Create the Kubernetes namespace if it does not exist"
+  type        = bool
+  default     = true
 }
 
 variable "namespace" {
