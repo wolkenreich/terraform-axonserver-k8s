@@ -4,6 +4,10 @@
 # Local .terraform directories
 **/.terraform/*
 
+# Provider lock file: only a root module's lock file is used, and this is a
+# child module, so the file is a local init artifact here
+.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
