@@ -2,7 +2,7 @@ locals {
   axonserver_properties = var.axonserver_properties == "" ? templatefile("${path.module}/conf/axonserver.properties.tftpl", {
     first_name              = "${var.cluster_name}-1"
     public_domain           = var.public_domain
-    namespace               = var.create_namespace ? kubernetes_namespace.axonserver[0].id : data.kubernetes_namespace.axonserver[0].id
+    namespace               = var.namespace
     internal_token          = random_uuid.internal_token.result
     devmode_enabled         = var.devmode_enabled
     platform_authentication = var.platform_authentication
@@ -14,7 +14,7 @@ locals {
 resource "kubernetes_config_map" "axonserver_properties" {
   metadata {
     name      = "axonserver.properties"
-    namespace = var.create_namespace ? kubernetes_namespace.axonserver[0].id : data.kubernetes_namespace.axonserver[0].id
+    namespace = var.namespace
   }
 
   data = {

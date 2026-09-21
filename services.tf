@@ -10,7 +10,7 @@ resource "kubernetes_service" "axonserver" {
 
   metadata {
     name      = "${var.cluster_name}-${count.index + 1}"
-    namespace = var.create_namespace ? kubernetes_namespace.axonserver[0].id : data.kubernetes_namespace.axonserver[0].id
+    namespace = var.namespace
     labels = {
       app     = "${var.cluster_name}-${count.index + 1}"
       run     = "${var.cluster_name}-${count.index + 1}"
