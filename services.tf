@@ -2,6 +2,10 @@ resource "kubernetes_service" "axonserver" {
   count = var.nodes_number
 
   lifecycle {
+    # GKE injects this annotation itself; without gke_neg every plan would
+    # otherwise try to remove it again.
+    ignore_changes = [metadata[0].annotations["cloud.google.com/neg"]]
+
     precondition {
       condition     = !var.gke_neg || length(var.gke_neg_zone) > 0
       error_message = "When gke_neg is enabled, gke_neg_zone must contain at least one zone. Please provide a list of zones or set gke_neg to false."
