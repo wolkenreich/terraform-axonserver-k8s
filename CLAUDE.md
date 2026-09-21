@@ -30,7 +30,7 @@ terraform fmt -recursive
 
 There are no tests. `terraform plan`/`apply` cannot be run from this repo — it requires a root module that configures the `kubernetes` provider and a reachable cluster. CI (`.lighthouse/jenkins-x/release.yaml`) runs `terraform init && terraform validate` in `hashicorp/terraform:1.14`; the PR pipeline runs the build pack's `lint` step.
 
-`terraform validate` warns that `kubernetes_config_map`, `kubernetes_secret` and friends are deprecated in favour of the `_v1` names. That is pre-existing upstream, not something a change introduced.
+`terraform validate` warns that `kubernetes_config_map`, `kubernetes_secret` and friends are deprecated in favour of the `_v1` names. That is pre-existing upstream, not something a change introduced — it surfaces because the kubernetes provider now resolves to 3.x. Both provider constraints in `versions.tf` are bounded below the next major (`< 4.0.0`); keep them bounded, since a child module's constraints are inherited by every caller.
 
 ## Architecture
 
@@ -63,6 +63,8 @@ Remotes: `origin` = `wolkenreich/terraform-axonserver-k8s`, `upstream` = `AxonIQ
 The fork delta is six commits on top of `upstream/main`: four functional deviations, one restoring the fork-only `.lighthouse/` pipelines, `.project` and the `.idea` entry in `.gitignore`, and one documenting them. The README's "Differences from upstream" section lists the functional four. The one worth repeating here, because it looks like an omission: **resources reference `var.namespace` directly** instead of `kubernetes_namespace.axonserver[0].id` / a `kubernetes_namespace` data source, because resolving it that way made every apply propose a redeploy. The trade-off is that nothing depends on the namespace resource, so with `create_namespace = true` Terraform does not order its creation before the resources inside it.
 
 When pulling upstream changes, check them against these four before merging — upstream has repeatedly re-introduced what the fork removed.
+
+[Record 001](docs/records/001-rebase-onto-upstream-v1.22.md) documents the rebase: what was superseded, what was kept and why, and which renames callers have to follow.
 
 ## CI / Release
 
