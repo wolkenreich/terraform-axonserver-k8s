@@ -20,6 +20,8 @@ module "axonserver" {
   
   axonserver_tag = "2025.1.5-jdk-17"
 
+  internal_token = var.axonserver_internal_token
+
   nodes_number  = 1
   cluster_name  = "axonserver"
   public_domain = "axoniq.net"
@@ -36,6 +38,8 @@ module "axonserver" {
   source = "git@github.com:AxonIQ/terraform-axonserver-k8s.git?ref=v1.20"
   
   axonserver_tag = "2025.1.5-jdk-17"
+
+  internal_token = var.axonserver_internal_token
 
   nodes_number  = 3
   cluster_name  = "axonserver"
@@ -63,6 +67,8 @@ module "axonserver" {
   
   axonserver_tag = "2025.1.5-jdk-17"
 
+  internal_token = var.axonserver_internal_token
+
   nodes_number  = 3
   cluster_name  = "axonserver"
   public_domain = "axoniq.net"
@@ -85,6 +91,8 @@ module "axonserver" {
   source = "git@github.com:AxonIQ/terraform-axonserver-k8s.git?ref=v1.20"
   
   axonserver_tag = "2025.1.5-jdk-17"
+
+  internal_token = var.axonserver_internal_token
 
   nodes_number  = 3
   cluster_name  = "axonserver"
@@ -110,6 +118,8 @@ module "axonserver" {
   source = "git@github.com:AxonIQ/terraform-axonserver-k8s.git?ref=v1.20"
   
   axonserver_tag = "2025.1.5-jdk-17"
+
+  internal_token = var.axonserver_internal_token
   axonserver_image = "eu.gcr.io/my-project/axonserver"
 
   nodes_number  = 1
@@ -128,6 +138,7 @@ module "axonserver" {
 | <a name="input_image_pull_policy"></a> [image_pull_policy](#input_image_pull_policy)                                        | Determines when Kubernetes pulls a container image from the registry                                                                                                         | `string`       | `"IfNotPresent"`      |     no      |
 | <a name="input_namespace"></a> [namespace](#input_namespace)                                                                | Kubernetes cluster namespace                                                                                                                                                 | `string`       | `"axonserver"`        |     no      |
 | <a name="input_create_namespace"></a> [create_namespace](#input_create_namespace)                                           | Whether to create the namespace or use an existing one                                                                                                                       | `bool`         | `true`                |     no      |
+| <a name="input_internal_token"></a> [internal_token](#input_internal_token)                                              | Internal access token used by Axon Server for access control between cluster nodes                                                                                           | `string`       | n/a                   |     yes     |
 | <a name="input_cluster_name"></a> [cluster_name](#input_cluster_name)                                                       | Axon Server cluster name                                                                                                                                                     | `string`       | `""`                  |     yes     |
 | <a name="input_nodes_number"></a> [nodes_number](#input_nodes_number)                                                       | Number of Axon Server nodes to deploy. When > 1, either `platform_authentication` or `axonserver_license_path` is required                                                   | `number`       | `1`                   |     yes     |
 | <a name="input_public_domain"></a> [public_domain](#input_public_domain)                                                    | The domain that is added to the hostname when returning hostnames to client applications                                                                                     | `string`       | `""`                  |     yes     |
@@ -177,6 +188,15 @@ When enabling GKE NEGs (`gke_neg = true`), you must provide at least one zone in
 ### Access Control
 
 Access control is enabled by default (`accesscontrol_enabled = true`). This is the recommended setting for production environments. Only disable access control in development or testing scenarios where security is not a concern.
+
+### Differences from upstream
+
+This is a fork of [AxonIQ/terraform-axonserver-k8s](https://github.com/AxonIQ/terraform-axonserver-k8s). It deviates in four points:
+
+- **`internal_token` is an input** instead of a value generated with `random_uuid`, so the token stays under the caller's control.
+- **The namespace is referenced as `var.namespace`**, not through the `kubernetes_namespace` resource or a `kubernetes_namespace` data source. Resolving it that way made every `terraform apply` propose a redeploy of the dependent resources. With `create_namespace = true` the namespace is still created, but nothing depends on its id, so Terraform does not order its creation before the resources inside it.
+- **The `cloud.google.com/neg` annotation is excluded from drift detection.** GKE writes it by itself. When `gke_neg` is enabled the annotation is written once at create time and not reconciled afterwards.
+- **The `run` label is absent** from the service and stateful set selectors. `spec.selector` is immutable on a StatefulSet, so adopting it would force a replacement of every node.
 
 ## Providers
 
