@@ -28,6 +28,12 @@ variable "namespace" {
   default     = "axonserver"
 }
 
+variable "internal_token" {
+  description = "Internal access token used by Axon Server for access control between cluster nodes"
+  type        = string
+  sensitive   = true
+}
+
 variable "cluster_name" {
   description = "Axon Server cluster name"
   type        = string

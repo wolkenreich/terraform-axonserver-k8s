@@ -1,9 +1,6 @@
 resource "random_uuid" "token" {
 }
 
-resource "random_uuid" "internal_token" {
-}
-
 resource "kubernetes_secret" "axonserver_token" {
   metadata {
     name      = "axonserver.token"
