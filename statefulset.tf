@@ -17,7 +17,6 @@ resource "kubernetes_stateful_set" "axonserver" {
 
     labels = {
       app     = "${var.cluster_name}-${count.index + 1}"
-      run     = "${var.cluster_name}-${count.index + 1}"
       cluster = var.cluster_name
     }
   }
@@ -29,7 +28,6 @@ resource "kubernetes_stateful_set" "axonserver" {
     selector {
       match_labels = {
         app     = "${var.cluster_name}-${count.index + 1}"
-        run     = "${var.cluster_name}-${count.index + 1}"
         cluster = var.cluster_name
       }
     }
@@ -38,7 +36,6 @@ resource "kubernetes_stateful_set" "axonserver" {
       metadata {
         labels = {
           app     = "${var.cluster_name}-${count.index + 1}"
-          run     = "${var.cluster_name}-${count.index + 1}"
           cluster = var.cluster_name
         }
       }
