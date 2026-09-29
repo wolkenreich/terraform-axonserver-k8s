@@ -42,3 +42,8 @@ terraform.rc
 
 # Axon Server license
 conf/axonserver.license
+
+# Personal Claude Code settings and state, local environment files
+.claude/settings.local.json
+CLAUDE.local.md
+.env
